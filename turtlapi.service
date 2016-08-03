@@ -1,0 +1,14 @@
+[Unit]
+Description=turtl - secure information management
+Documentation=https://turtl.it
+Requires=network.target local-fs.target rethinkdb@default.service
+After=network.target local-fs.target
+RequiresMountsFor=/home/erik/.config
+[Service]
+User=turtlrun
+WorkingDirectory=/opt/turtlapi
+ExecStart=/opt/turtlapi/ccl/lx86cl64 --load start.lisp 
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

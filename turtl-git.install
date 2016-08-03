@@ -1,0 +1,22 @@
+
+userdir="/opt/turtlrun"
+
+function getquicklisp() {
+  su turtlrun -c "/opt/turtlapi/quicklisp.sh"   #Quotes in commands were problematic for LISP
+} 
+
+pre_install() {
+  echo "I am a pre install script"
+}
+
+post_install() {
+  useradd -md $userdir  turtlrun
+  getquicklisp
+  echo "Turtl also needs quicklisp installed. Attempted to install for user turtlrun, can be done by following the instructions at: "
+  echo "https://www.quicklisp.org/beta/#installation"
+}
+
+post_remove() {
+  userdel turtlrun
+  rm -rf $userdir
+}
